@@ -1,0 +1,28 @@
+.tile {
+    border: 1px solid black;
+    margin: 2px;
+    display: flex;
+    flex-grow: 1;
+
+    margin: 0;
+    padding: 0;
+}
+
+.container { 
+    border: 3px solid red;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    border-radius: 3px;
+}
+
+.rowDiv {
+    display: flex;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+}
