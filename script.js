@@ -82,6 +82,7 @@ function clearGrid ()
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
+    return;
 }
 
 function createGrid4 () 
