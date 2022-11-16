@@ -4,6 +4,7 @@ const grid4 = document.querySelector('.grid4')
 const grid16 = document.querySelector('.grid16');
 const grid32 = document.querySelector('.grid32');
 const grid64 = document.querySelector('.grid64');
+const clear = document.querySelector('.clear')
 
 
 let div;
@@ -14,6 +15,7 @@ grid16.addEventListener('click', createGrid16);
 grid32.addEventListener('click', createGrid32);
 grid64.addEventListener('click', createGrid64);
 container.addEventListener('click', draw);
+clear.addEventListener('click', clearGrid);
 
 function draw(e) 
 {
@@ -79,6 +81,16 @@ function createDiv()
 
 function clearGrid ()
 {
+    let  tiles = document.querySelectorAll('.tile');
+
+    for (const tile of tiles)
+    {
+        tile.classList.remove('tileHovered');
+    }
+}
+
+function removeGrid ()
+{
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
@@ -87,7 +99,7 @@ function clearGrid ()
 
 function createGrid4 () 
 {
-    clearGrid();
+    removeGrid();
     for (let i = 0; i < 4; i++)
     {
         createRow();
@@ -102,7 +114,7 @@ function createGrid4 ()
 
 function  createGrid16 () 
 {   
-    clearGrid();
+    removeGrid();
     for (let i = 0; i < 16; i++)
     {
         createRow();
@@ -116,7 +128,7 @@ function  createGrid16 ()
 
 function createGrid32 () 
 {
-    clearGrid();
+    removeGrid();
     for (let i = 0; i < 32; i++)
     {
         createRow();
@@ -130,7 +142,7 @@ function createGrid32 ()
 
 function createGrid64 () 
 {
-    clearGrid();
+    removeGrid();
     for (let i = 0; i < 64; i++)
     {
         createRow();
