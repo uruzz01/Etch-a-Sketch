@@ -29,3 +29,8 @@
 .tileHovered {
     background-color: green;
 }
+
+.active {
+    background-color: lightcyan;
+}
+
