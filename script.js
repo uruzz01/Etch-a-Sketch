@@ -49,9 +49,14 @@ function activateEraser (e)
 
 function askGrid () 
 {
-    let size = +prompt('Inser grid size. Max value is under 100', '100');
+    let size = +prompt('Inser grid size. Max value is 100', '100');
     
     removeGrid();
+
+    if (size > 100)
+    {
+        return;
+    }
     for (let i = 0; i < `${size}`; i++)
     {
         createRow();
