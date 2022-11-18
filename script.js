@@ -7,6 +7,7 @@ const grid64 = document.querySelector('.grid64');
 const custom = document.querySelector('.custom');
 const clear = document.querySelector('.clear');
 const eraser = document.querySelector('#eraser');
+const colorPicker = document.querySelector('#colorpicker');
 
 let div;
 let rowDiv;
@@ -20,6 +21,7 @@ grid64.addEventListener('click', createGrid64);
 custom.addEventListener('click', askGrid);
 clear.addEventListener('click', clearGrid);
 eraser.addEventListener('click', activateEraser);
+colorPicker.addEventListener('change', pickColor);
 
 function activateEraser (e)
 {
@@ -98,13 +100,18 @@ function draw(e)
 
         if (targetTile.className == 'tile' && !(eraser.dataset.value == 'active'))
         {
-            targetTile.classList += ' tileHovered';
+            targetTile.style.backgroundColor = pickColor();
         }
 
     }
 
     changeColor();
 
+}
+
+function pickColor()
+{
+   return colorPicker.value;
 }
 
 function changeColor()
@@ -116,11 +123,12 @@ function changeColor()
             tile.addEventListener('mouseover', function hoverTile() {
                 if (container.className == 'ready')
                 {
-                    tile.classList.add("tileHovered");
+
+                    tile.style.backgroundColor = pickColor();
                 }   
                 if (eraser.dataset.value == 'active')
                 {
-                    tile.classList.remove("tileHovered");
+                    tile.style.backgroundColor = '#ffffff';
                 }
               }); 
       }   
@@ -147,7 +155,7 @@ function clearGrid ()
 
     for (const tile of tiles)
     {
-        tile.classList.remove('tileHovered');
+        tile.style.backgroundColor = '#ffffff';
     }
 }
 
