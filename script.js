@@ -6,6 +6,7 @@ const grid32 = document.querySelector('.grid32');
 const grid64 = document.querySelector('.grid64');
 const custom = document.querySelector('.custom');
 const clear = document.querySelector('.clear');
+const hide = document.querySelector('#hideGrid');
 const eraser = document.querySelector('#eraser');
 const colorPicker = document.querySelector('#colorpicker');
 
@@ -20,6 +21,7 @@ grid32.addEventListener('click', createGrid32);
 grid64.addEventListener('click', createGrid64);
 custom.addEventListener('click', askGrid);
 clear.addEventListener('click', clearGrid);
+hide.addEventListener('click', toggleGrid);
 eraser.addEventListener('click', activateEraser);
 colorPicker.addEventListener('change', pickColor);
 
@@ -41,12 +43,43 @@ function activateEraser (e)
         target.dataset.value = 'active';
         eraser.className = '';
         eraser.className += 'active';
+
+        if(container.className == 'ready')
+        {
+            changeColor();
+        }
         
         // console.log( container.classList);
     }
 
-    changeColor();
+    
 
+}
+
+function toggleGrid (e) 
+{
+    let target = e.target;
+    
+    if (container.childNodes.length > 0)
+    {
+        if (hide.id == 'hideGrid' && hide.dataset.value == 'active')
+        {
+            delete target.dataset.value;
+            hide.classList.remove('active');
+            console.log(hide.dataset.value);
+    
+        }
+        else
+        {   
+            target.dataset.value = 'active';
+            hide.className = '';
+            hide.className += 'active';
+            console.log(hide.classList);
+        }
+    
+        hideGrid();    
+    }
+       
 }
 
 function askGrid () 
@@ -70,7 +103,7 @@ function askGrid ()
     }
 }
 
-function draw(e) 
+function draw (e) 
 {
     
     let targetId = e.target.parentNode.parentNode.id;
@@ -78,7 +111,7 @@ function draw(e)
 
     // console.log(targetTile);
     
-    console.log(`Target id: ${targetId}`);
+    // console.log(`Target id: ${targetId}`);
 
     if (targetId == "container" && e.target.parentNode.parentNode.className == 'ready') 
     {
@@ -90,7 +123,7 @@ function draw(e)
     else 
     { 
         
-        if (!(eraser.dataset.value == 'active'))
+        if (container.childNodes.length > 0) /////////////////////////////
         {
             container.className = '';
             container.className += 'ready';
@@ -98,23 +131,28 @@ function draw(e)
         
         console.log(`container.className: ${container.className}`);
 
-        if (targetTile.className == 'tile' && !(eraser.dataset.value == 'active'))
+        if (targetTile.className.includes('tile') && !(eraser.dataset.value == 'active'))
         {
             targetTile.style.backgroundColor = pickColor();
         }
 
-    }
+        if (targetTile.className.includes('tile') && eraser.dataset.value == 'active')
+        {
+            targetTile.style.backgroundColor = '#ffffff';
+        }
 
+    }
+    
     changeColor();
 
 }
 
-function pickColor()
+function pickColor ()
 {
    return colorPicker.value;
 }
 
-function changeColor()
+function changeColor ()
 {
     let tiles = document.querySelectorAll('.tile');
     
@@ -123,10 +161,9 @@ function changeColor()
             tile.addEventListener('mouseover', function hoverTile() {
                 if (container.className == 'ready')
                 {
-
                     tile.style.backgroundColor = pickColor();
                 }   
-                if (eraser.dataset.value == 'active')
+                if (eraser.dataset.value == 'active' && container.className == 'ready')
                 {
                     tile.style.backgroundColor = '#ffffff';
                 }
@@ -146,6 +183,7 @@ function createDiv()
     div = document.createElement('div');
     rowDiv.appendChild(div);
     div.classList.add('tile');
+    div.className += ' border';
 
 } 
 
@@ -160,15 +198,36 @@ function clearGrid ()
 }
 
 function removeGrid ()
-{
+{   
+    hide.classList.remove('active');
+    delete hide.dataset.value;
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
     return;
 }
 
+function hideGrid ()
+{
+
+    let tiles = document.querySelectorAll('.tile');
+
+        for (const tile of tiles)
+        {   
+            if (hide.dataset.value == 'active') 
+            {
+                tile.classList.remove('border');
+            }
+            else
+            {
+                tile.className += ' border';
+            }
+        }
+}
+
 function createGrid4 () 
 {
+    
     removeGrid();
     for (let i = 0; i < 4; i++)
     {
@@ -179,7 +238,6 @@ function createGrid4 ()
             createDiv();    
         }
     }
-
 }
 
 function  createGrid16 () 
