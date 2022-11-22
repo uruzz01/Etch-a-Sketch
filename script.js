@@ -138,7 +138,7 @@ function draw (e)
 
         if (targetTile.className.includes('tile') && eraser.dataset.value == 'active')
         {
-            targetTile.style.backgroundColor = '#ffffff';
+            targetTile.style.backgroundColor = '#606380';
         }
 
     }
@@ -165,7 +165,7 @@ function changeColor ()
                 }   
                 if (eraser.dataset.value == 'active' && container.className == 'ready')
                 {
-                    tile.style.backgroundColor = '#ffffff';
+                    tile.style.backgroundColor = '#606380';
                 }
               }); 
       }   
@@ -193,7 +193,7 @@ function clearGrid ()
 
     for (const tile of tiles)
     {
-        tile.style.backgroundColor = '#ffffff';
+        tile.style.backgroundColor = '#606380';
     }
 }
 
